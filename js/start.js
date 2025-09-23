@@ -55,6 +55,29 @@ function getData() {}
 
 function skipItems() {}
 
+function errorHandle() {
+  axios
+    .get("https://json-api.uz/api/project/my-books/books/30")
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      if (error.response) {
+        // Server responded with a status code outside the range of 2xx
+        console.log("Response error:", error.response.data);
+        console.log("Status:", error.response.status);
+        console.log("Headers:", error.response.headers);
+      } else if (error.request) {
+        // Request was made but no response was received
+        console.error("Request error:", error.request);
+      } else {
+        // Something else happened while setting up the request
+        console.log("Error:", error.message);
+      }
+      console.log("Config:", error.config);
+    });
+}
+
 // Show output in browser
 function showOutput(res) {
   document.getElementById("res").innerHTML = `
