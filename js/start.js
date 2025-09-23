@@ -1,6 +1,10 @@
+const axiosInstance = axios.create({
+  baseURL: "https://json-api.uz/api/project/my-books/books",
+});
+
 // GET REQUEST
 function getTodos() {
-  axios("https://json-api.uz/api/project/my-books/books")
+  axiosInstance("")
     .then((response) => {
       showOutput(response);
       console.log(response);
@@ -10,8 +14,8 @@ function getTodos() {
 
 // POST REQUEST
 function addTodo() {
-  axios
-    .post("https://json-api.uz/api/project/my-books/books", {
+  axiosInstance
+    .post("", {
       yosh: 1,
       millat: "uzbek",
       davlat: "Uzbekistan",
@@ -25,8 +29,8 @@ function addTodo() {
 
 // PUT/PATCH REQUEST
 function updateTodo() {
-  axios
-    .patch("https://json-api.uz/api/project/my-books/books/10", {
+  axiosInstance
+    .patch("/12", {
       nom: "machomen",
       yil: 2024,
       janr: "fantastik",
@@ -41,8 +45,8 @@ function updateTodo() {
 
 // DELETE REQUEST
 function removeTodo() {
-  axios
-    .delete("https://json-api.uz/api/project/my-books/books/10")
+  axiosInstance
+    .delete("/14")
     .then((response) => {
       showOutput(response);
       console.log(response);
@@ -51,17 +55,42 @@ function removeTodo() {
 }
 
 // SIMULTANEOUS DATA
-function getData() {}
+async function getData() {
+  try {
+    const [u1, u2, u3] = await Promise.all([
+      axiosInstance.get("/2"),
+      axiosInstance.get("/3"),
+      axiosInstance.get("/4"),
+    ]);
 
-function skipItems() {}
+    console.log("u1:", u1.data);
+    console.log("u2:", u2.data);
+    console.log("u3:", u3.data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
 
+// SKIP ITEM
+function skipItems() {
+  axiosInstance
+    .get("?year_ne=2008")
+    .then((response) => {
+      showOutput(response);
+      console.log(response);
+    })
+    .catch((error) => console.log(error));
+}
+
+// ERROR HANDLE
 function errorHandle() {
-  axios
-    .get("https://json-api.uz/api/project/my-books/books/30")
+  axiosInstance
+    .get("/30")
     .then((response) => {
       console.log(response.data);
     })
     .catch((error) => {
+      showOutput(error);
       if (error.response) {
         // Server responded with a status code outside the range of 2xx
         console.log("Response error:", error.response.data);
@@ -121,3 +150,4 @@ document.getElementById("update").addEventListener("click", updateTodo);
 document.getElementById("delete").addEventListener("click", removeTodo);
 document.getElementById("sim").addEventListener("click", getData);
 document.getElementById("skip").addEventListener("click", skipItems);
+document.getElementById("error").addEventListener("click", errorHandle);
