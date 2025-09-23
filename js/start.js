@@ -1,14 +1,54 @@
 // GET REQUEST
-function getTodos() {}
+function getTodos() {
+  axios("https://json-api.uz/api/project/my-books/books")
+    .then((response) => {
+      showOutput(response);
+      console.log(response);
+    })
+    .catch((error) => console.log(error));
+}
 
 // POST REQUEST
-function addTodo() {}
+function addTodo() {
+  axios
+    .post("https://json-api.uz/api/project/my-books/books", {
+      yosh: 1,
+      millat: "uzbek",
+      davlat: "Uzbekistan",
+    })
+    .then((response) => {
+      showOutput(response);
+      console.log(response);
+    })
+    .catch((error) => console.log(error));
+}
 
 // PUT/PATCH REQUEST
-function updateTodo() {}
+function updateTodo() {
+  axios
+    .patch("https://json-api.uz/api/project/my-books/books/10", {
+      nom: "machomen",
+      yil: 2024,
+      janr: "fantastik",
+      vaqt: "100min",
+    })
+    .then((response) => {
+      showOutput(response);
+      console.log(response);
+    })
+    .catch((error) => console.log(error));
+}
 
 // DELETE REQUEST
-function removeTodo() {}
+function removeTodo() {
+  axios
+    .delete("https://json-api.uz/api/project/my-books/books/10")
+    .then((response) => {
+      showOutput(response);
+      console.log(response);
+    })
+    .catch((error) => console.log(error));
+}
 
 // SIMULTANEOUS DATA
 function getData() {}
