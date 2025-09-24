@@ -107,6 +107,41 @@ function errorHandle() {
     });
 }
 
+// WORKING WITH FORM
+const form = document.querySelector("form");
+const imageSubmitButton = document.getElementById("image-submit");
+let imageURL = "";
+
+// UPLOADING IMAGE
+imageSubmitButton.addEventListener("click", () => {
+  const formData = new FormData(form);
+  axios
+    .post("https://json-api.uz/api/project/my-books/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((response) => {
+      imageURL = response.data;
+    })
+    .catch((error) => console.log(error));
+});
+
+// POSTING FORM DATA
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  axiosInstance
+    .post("", {
+      name: form.name.value,
+      category: form.category.value,
+      price: form.price.value,
+      brand: form.brand.value,
+      image: imageURL,
+    })
+    .then((response) => showOutput(response))
+    .catch((error) => console.log(error));
+});
+
 // Show output in browser
 function showOutput(res) {
   document.getElementById("res").innerHTML = `
