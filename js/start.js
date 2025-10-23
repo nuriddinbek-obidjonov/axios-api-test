@@ -1,5 +1,5 @@
 const axiosInstance = axios.create({
-  baseURL: "https://dummyjson.com/products",
+  baseURL: "https://json-api.uz/api/project/my-books/books",
 });
 
 // GET REQUEST
