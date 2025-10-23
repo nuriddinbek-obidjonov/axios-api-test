@@ -1,5 +1,5 @@
 const axiosInstance = axios.create({
-  baseURL: "https://json-api.uz/api/project/my-books/books",
+  baseURL: "https://dummyjson.com/products",
 });
 
 // GET REQUEST
@@ -7,7 +7,6 @@ function getTodos() {
   axiosInstance("")
     .then((response) => {
       showOutput(response);
-      console.log(response);
     })
     .catch((error) => console.log(error));
 }
@@ -22,7 +21,6 @@ function addTodo() {
     })
     .then((response) => {
       showOutput(response);
-      console.log(response);
     })
     .catch((error) => console.log(error));
 }
@@ -38,7 +36,6 @@ function updateTodo() {
     })
     .then((response) => {
       showOutput(response);
-      console.log(response);
     })
     .catch((error) => console.log(error));
 }
@@ -49,7 +46,6 @@ function removeTodo() {
     .delete("/14")
     .then((response) => {
       showOutput(response);
-      console.log(response);
     })
     .catch((error) => console.log(error));
 }
@@ -62,10 +58,6 @@ async function getData() {
       axiosInstance.get("/3"),
       axiosInstance.get("/4"),
     ]);
-
-    console.log("u1:", u1.data);
-    console.log("u2:", u2.data);
-    console.log("u3:", u3.data);
   } catch (error) {
     console.error("Error fetching data:", error.message);
   }
@@ -77,7 +69,6 @@ function skipItems() {
     .get("?year_ne=2008")
     .then((response) => {
       showOutput(response);
-      console.log(response);
     })
     .catch((error) => console.log(error));
 }
@@ -163,7 +154,7 @@ function showOutput(res) {
       Data
     </div>
     <div class="card-body">
-      <pre>${JSON.stringify(res.data, null, 2)}</pre>
+      <pre>${JSON.stringify(res.data.products, null, 2)}</pre>
     </div>
   </div>
 
